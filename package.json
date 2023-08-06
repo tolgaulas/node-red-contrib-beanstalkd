@@ -1,6 +1,6 @@
 {
   "name": "@tolgaulas/node-red-contrib-beanstalkd",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "beanstalkd nodes for node-red",
   "main": "beans.js",
   "scripts": {},
@@ -29,6 +29,9 @@
   "license": "MIT",
   "dependencies": {
     "jackd": "^2.1.2"
+  },
+  "engines": {
+    "node": ">=16.20.1"
   },
   "node-red": {
     "version": ">=3.0.2",
