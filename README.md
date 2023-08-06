@@ -5,7 +5,7 @@ Heavily "inspired" from [node-red-contrib-redis](https://github.com/chameleonbr/
 
 ## Hints
  - Common server config parameter requires hostname and port (default to localhost and 11300).
- - All nodes uses job related data in msg.job. 
+ - All nodes use job related data in msg.job. 
  - `Reserve from tube` expects server connection info from `server config` in node's `config.server`, which is passed on to the msg.job.server for further job operations with the same connection.
 
 
