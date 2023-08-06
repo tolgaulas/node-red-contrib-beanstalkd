@@ -1,0 +1,287 @@
+<!-- -->
+
+<script type="text/javascript">
+    RED.nodes.registerType('beanstalkd_server',{
+        category: 'config',
+        defaults: {
+            name: {value: ""},
+            host: {value:"localhost",required:true},
+            port: {value:11300,required:true,validate:RED.validators.number()},
+        },
+        icon: "beanstalkd_config.svg",
+        color: "#62C248",
+        label: function() {
+            return this.name || this.host+":"+this.port || "localhost:11300";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="beanstalkd_server">
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-bookmark"></i> Host</label>
+        <input type="text" id="node-config-input-host">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-bookmark"></i> Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="beanstalkd_server">
+    ## SMTP Config
+    
+    -   **host** - is the hostname or ip address to connect to - default localhost
+    -   **port** - is the port to connect to - default 11300
+
+</script>
+
+
+<!---->
+<script type="text/javascript">
+    RED.nodes.registerType('put',{
+        category: 'beanstalkd',
+        defaults: {
+            server: {value:"", type: "beanstalkd_server"},
+            tube : {value:"default"},
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:2,
+        outputLabels: ["success","fail"],
+        icon: "beanstalkd_put.svg",
+        color: "#62C248",
+        label: function() {
+            return this.name||"put";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="put">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i>Server</label>
+        <input type="text" id="node-input-server" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-tube"><i class="fa fa-tube"></i>Tube</label>
+        <input type="text" id="node-input-tube" />
+    </div>
+
+</script>
+
+<script type="text/markdown" data-help-name="put">
+    ## Put into a tube
+    - **server** - Server config node
+    - **tube** - Name of the tube to put in
+
+</script>
+
+<!---->
+<script type="text/javascript">
+    RED.nodes.registerType('reserve tube',{
+        category: 'beanstalkd',
+        defaults: {
+            server: {value:"", type: "beanstalkd_server"},
+            tube : {value:"default"},
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "beanstalkd_reserve.svg",
+        color: "#62C248",
+        label: function() {
+            //console.warn("Here i am", this);
+            return `Reserve from tube ${this.tube}`;
+            //return `Tolga`;
+        },
+        align:'left'
+    });
+</script>
+
+<script type="text/html" data-template-name="reserve tube">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i>Server</label>
+        <input type="text" id="node-input-server" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-tube"><i class="fa fa-tube"></i>Tube</label>
+        <input type="text" id="node-input-tube" />
+    </div>
+
+</script>
+
+<script type="text/markdown" data-help-name="reserve tube">
+    ## Put into a tube
+    - **server** - Server config node
+    - **tube** - Name of the tube to put in
+</script>
+
+
+<!---->
+<script type="text/javascript">
+    RED.nodes.registerType('reserve job',{
+        category: 'beanstalkd',
+        defaults: {
+            server: {value:"", type: "beanstalkd_server"},
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:2,
+        icon: "beanstalkd_reserve.svg",
+        color: "#62C248",
+        label: function() {
+            return this.name || `reserve job`;
+        },      
+    });
+</script>
+
+<script type="text/html" data-template-name="reserve job">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-server"></i>Server</label>
+        <input type="text" id="node-input-server" />
+    </div>
+
+</script>
+
+<script type="text/markdown" data-help-name="reserve job">
+    ## Reserve the jobid
+    - **server** - Server config node
+</script>
+
+
+<!---->
+<script type="text/javascript">
+    RED.nodes.registerType('release',{
+        category: 'beanstalkd',
+        defaults: {
+            name: {value:""},
+            delay:{value:0},
+            priority:{value:0}
+        },
+        inputs:1,
+        outputs:2,
+        outputLabels: ["success","fail"],
+        icon: "beanstalkd_release.svg",
+        color: "#62C248",
+        label: function() {
+            return this.name||"release";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="release">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-delay"><i class="fa fa-clock"></i>delay</label>
+        <input type="text" id="node-input-server" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-priority"><i class="fa fa-tube"></i>priority</label>
+        <input type="text" id="node-input-priority" />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="release">
+    ## Release reserved job id
+</script>
+
+<!---->
+<script type="text/javascript">
+    RED.nodes.registerType('delete',{
+        category: 'beanstalkd',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:2,
+        outputLabels: ["success","fail"],
+        icon: "beanstalkd_delete.svg",
+        color: "#62C248",
+        label: function() {
+            return this.name||"delete";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="delete">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="delete">
+    ## Delete job id
+</script>
+
+<!---->
+<script type="text/javascript">
+    RED.nodes.registerType('bury',{
+        category: 'beanstalkd',
+        defaults: {
+            name: {value:""},
+        },
+        inputs:1,
+        outputs:2,
+        outputLabels: ["success","fail"],
+        icon: "beanstalkd_bury.svg",
+        color: "#62C248",
+        label: function() {
+            return this.name||"bury";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="bury">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="bury">
+    ## Burry job id
+</script>
+
+<!---->
+<script type="text/javascript">
+    RED.nodes.registerType('kick job',{
+        category: 'beanstalkd',
+        defaults: {
+            name: {value:""},
+        },
+        inputs:1,
+        outputs:2,
+        outputLabels: ["success","fail"],
+        icon: "beanstalkd_kickjob.svg",
+        color: "#62C248",
+        label: function() {
+            return this.name||"kick job";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="kick job">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="kick job">
+    ## Kick job id
+</script>
