@@ -1,0 +1,39 @@
+{
+  "name": "@tolgaulas/node-red-contrib-beanstalkd",
+  "version": "0.0.2",
+  "description": "beanstalkd nodes for node-red",
+  "main": "beans.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tolgaulas/node-red-contrib-beanstalkd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tolgaulas/node-red-contrib-beanstalkd/issues"
+  },
+  "homepage": "https://github.com/tolgaulas/node-red-contrib-beanstalkd#readme",
+  "maintainers": [
+    {
+      "name": "tolgaulas",
+      "email": "tolga.ulas.1970@gmail.com"
+    }
+  ],
+  "keywords": [
+    "beanstalkd",
+    "node-red",
+    "node"
+  ],  
+  "author": {
+    "name": "Tolga Ulas"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jackd": "^2.1.2"
+  },
+  "node-red": {
+    "version": ">=3.0.2",
+    "nodes": {
+      "nodered-beanstalkd": "src/beans.js"
+    }
+  }
+}
